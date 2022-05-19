@@ -1,0 +1,25 @@
+@import '../../../theme.scss';
+
+:host {
+    display: flex;
+    // flex-grow: 1;
+    flex-direction: column;
+}
+
+div.button {
+    height: 24px;
+    line-height: 24px;
+    color: $pb-primary;
+
+    padding-left: 12px;
+
+    font-weight: 500;
+    font-size: 14px;
+}
+
+div.button:hover {
+    background-color: $pb-primary;
+    // background-color: brown;
+    color: #000;
+
+}
