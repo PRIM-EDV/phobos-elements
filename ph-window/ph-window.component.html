@@ -1,4 +1,4 @@
-<div class="title-bar">
+<div class="title-bar" (mousedown)="handleDragStart($event)" (mousemove)="handleDrag($event)">
     <div class="title">
         {{title}}
     </div>

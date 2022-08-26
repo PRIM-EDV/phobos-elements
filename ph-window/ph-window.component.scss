@@ -6,7 +6,6 @@
     grid-template-columns: 1fr;
     margin: 6px;
     background-color: #28343e;
-    overflow: hidden;
 }
 
 div.title-bar {
@@ -31,7 +30,6 @@ div.title-bar {
 div.workspace {
     background-color: #252526;
     margin: 0 2px 2px 2px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
 }

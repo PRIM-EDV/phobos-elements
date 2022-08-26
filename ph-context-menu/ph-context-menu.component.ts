@@ -7,11 +7,9 @@ import { Component, ElementRef, HostBinding, OnInit } from '@angular/core';
 })
 export class PhContextMenuComponent implements OnInit {
 
-  @HostBinding('style') style = "display: none";
-
   public isOpened = false;
 
-  constructor(private ref:ElementRef) {
+  constructor(public ref: ElementRef) {
     window.addEventListener('mousedown', (e) => {  
       if(!ref.nativeElement.contains(e.target)) {
         this.close();
@@ -30,20 +28,16 @@ export class PhContextMenuComponent implements OnInit {
 
   public open(position?: {x: number, y: number}) {
     if(position) {
-      console.log(position)
-      this.style = `top: ${position.y - 6}px; left: ${position.x - 6}px`;
-      // this.style = `top: ${10}px; left: ${10}px`;
-
-    } else {
-      this.style = "";
+      this.ref.nativeElement.style.top = `${position.y - 6}px`;
+      this.ref.nativeElement.style.left = `${position.x - 6}px`;
     }
-
+    this.ref.nativeElement.style.display = "block";
     this.isOpened = true;
   }
 
   public close() {
     this.isOpened = false;
-    this.style = "display: none";
+    this.ref.nativeElement.style.display = "none";
   }
 
 }

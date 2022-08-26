@@ -11,6 +11,10 @@ import { PhButtonListComponent } from './ph-button-list/ph-button-list.component
 import { PhTableComponent } from './ph-table/ph-table.component';
 import { PhContextMenuComponent } from './ph-context-menu/ph-context-menu.component';
 import { PhContextMenuItemComponent } from './ph-context-menu-item/ph-context-menu-item.component';
+import { PhSliderComponent } from './ph-slider/ph-slider.component';
+import { PhDropdownComponent } from './ph-dropdown/ph-dropdown.component';
+import { PhDropdownItemComponent } from './ph-dropdown-item/ph-dropdown-item.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,14 @@ import { PhContextMenuItemComponent } from './ph-context-menu-item/ph-context-me
     PhButtonListComponent,
     PhTableComponent,
     PhContextMenuComponent,
-    PhContextMenuItemComponent
+    PhContextMenuItemComponent,
+    PhSliderComponent,
+    PhDropdownComponent,
+    PhDropdownItemComponent
   ],
-  imports: [],
+  imports: [
+    BrowserModule
+  ],
   exports: [
     PhWindowComponent,
     PhSidebarComponent,
@@ -40,7 +49,10 @@ import { PhContextMenuItemComponent } from './ph-context-menu-item/ph-context-me
     PhCommandListComponent,
     PhTableComponent,
     PhContextMenuComponent,
-    PhContextMenuItemComponent
+    PhContextMenuItemComponent,
+    PhSliderComponent,
+    PhDropdownComponent,
+    PhDropdownItemComponent
   ],
   providers: [],
   bootstrap: []
