@@ -9,6 +9,8 @@ import { PhButtonComponent } from './ph-button/ph-button.component';
 import { PhCommandListComponent } from './ph-command-list/ph-command-list.component';
 import { PhButtonListComponent } from './ph-button-list/ph-button-list.component';
 import { PhTableComponent } from './ph-table/ph-table.component';
+import { PhContextMenuComponent } from './ph-context-menu/ph-context-menu.component';
+import { PhContextMenuItemComponent } from './ph-context-menu-item/ph-context-menu-item.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { PhTableComponent } from './ph-table/ph-table.component';
     PhButtonComponent,
     PhCommandListComponent,
     PhButtonListComponent,
-    PhTableComponent
+    PhTableComponent,
+    PhContextMenuComponent,
+    PhContextMenuItemComponent
   ],
   imports: [],
   exports: [
@@ -34,7 +38,9 @@ import { PhTableComponent } from './ph-table/ph-table.component';
     PhButtonComponent,
     PhInputComponent,
     PhCommandListComponent,
-    PhTableComponent
+    PhTableComponent,
+    PhContextMenuComponent,
+    PhContextMenuItemComponent
   ],
   providers: [],
   bootstrap: []
