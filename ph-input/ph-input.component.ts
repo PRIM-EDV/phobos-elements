@@ -9,7 +9,7 @@ export class PhInputComponent implements OnInit {
 
   @Input() label: string = "";
   @Input() type: string = "text";
-  @Input() value: string = "";
+  @Input() value: string | number = "";
 
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
