@@ -1,19 +1,19 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ph-slider',
   templateUrl: './ph-slider.component.html',
   styleUrls: ['./ph-slider.component.scss']
 })
-export class PhSliderComponent implements OnInit {
+export class PhSliderComponent implements OnChanges, AfterViewInit  {
     public active = 0;
 
     @Input() public label = '';
-    @Input() public value = '';
+    @Input() public value: number = 0;
     @Input() public ticks: string[] = [];
     @Input() public tickValues: any[] = [];
 
-    @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+    @Output() valueChange: EventEmitter<number> = new EventEmitter<number>();
 
     @ViewChild('track') track!: ElementRef<HTMLDivElement>;
     @ViewChild('handle') handle!: ElementRef<HTMLDivElement>;
@@ -27,12 +27,23 @@ export class PhSliderComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
+        this.setTick();
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.active = this.tickValues.indexOf(this.value);
+        if(this.track) {
+            this.setTick();
+        }
     }
 
     onDragStart(idx: number) {
         this.dragged = true;
-        this.setTick(idx);
+        this.active = idx;
+        console.log("Drag")
+        this.update();
+        this.setTick();
     }
 
     onDrag(e: MouseEvent) {
@@ -48,15 +59,24 @@ export class PhSliderComponent implements OnInit {
     }
 
     onDragEnd() {
+        if (this.dragged) {
+            this.update();
+            this.setTick();
+        }
         this.dragged = false;
-        this.setTick(this.active);
+
     }
 
-    setTick(idx: number) {
+    setTick() {
         const width = this.track.nativeElement.clientWidth + 2;
-        const p = (idx / (this.ticks.length - 1)) * 100;
+        const p = (this.active / (this.ticks.length - 1)) * 100;
         this.track.nativeElement.style.background = `linear-gradient(90deg, #f8a403 0%, #f8a403 ${p}%, rgba(0, 0, 0, 0) ${p}%, rgba(0, 0, 0, 0) 100%)`;
-        this.handle.nativeElement.style.left = `${(idx / (this.ticks.length - 1)) * width  - 10}px`; 
-        this.active = idx;
+        this.handle.nativeElement.style.left = `${(this.active / (this.ticks.length - 1)) * width  - 10}px`; 
+        console.log(`${(this.active / (this.ticks.length - 1)) * width  - 10}px`);
+    }
+
+    private update() {
+        this.value = this.tickValues[this.active];
+        this.valueChange.next(this.value);
     }
 }

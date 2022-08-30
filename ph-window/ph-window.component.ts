@@ -23,10 +23,12 @@ export class PhWindowComponent implements OnInit {
 
   public hide() {
     this.ref.nativeElement.style.display = "none";
+    this.ref.nativeElement.style.pointerEvents = "none";
   }
 
   public show() {
     this.ref.nativeElement.style.display = "block";
+    this.ref.nativeElement.style.pointerEvents = "auto";
   }
 
   ngOnInit(): void {
