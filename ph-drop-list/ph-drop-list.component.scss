@@ -1,0 +1,38 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #1b1b1b;
+}
+
+div.list {
+    flex-grow: 1;
+    border-right: 2px solid #28343e;
+}
+
+:host:last-child div.list {
+    border-right: none !important;
+    border-left: none !important;
+}
+
+:host:nth-child(2n+1) div.list {
+    background-color: #23282b;
+}
+
+div.header {
+    color: #a9aaac;
+    text-align: left;
+    font-family: 'Fira Code';
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+
+    // border-top: 2px solid #252526;
+    border-bottom: 2px solid #28343e;
+    height: 20px;
+
+    vertical-align: bottom;
+
+    padding-left: 10px;
+    word-spacing: -4px;
+}
