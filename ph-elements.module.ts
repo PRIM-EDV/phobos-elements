@@ -15,6 +15,12 @@ import { PhSliderComponent } from './ph-slider/ph-slider.component';
 import { PhDropdownComponent } from './ph-dropdown/ph-dropdown.component';
 import { PhDropdownItemComponent } from './ph-dropdown-item/ph-dropdown-item.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { PhSidebarItemComponent } from './ph-sidebar-item/ph-sidebar-item.component';
+import { PhTopbarItemComponent } from './ph-topbar-item/ph-topbar-item.component';
+import { PhTopbarHeaderComponent } from './ph-topbar-header/ph-topbar-header.component';
+import { PhDropAreaComponent } from './ph-drop-area/ph-drop-area.component';
+import { PhDropListComponent } from './ph-drop-list/ph-drop-list.component';
+import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +38,13 @@ import { BrowserModule } from '@angular/platform-browser';
     PhContextMenuItemComponent,
     PhSliderComponent,
     PhDropdownComponent,
-    PhDropdownItemComponent
+    PhDropdownItemComponent,
+    PhSidebarItemComponent,
+    PhTopbarItemComponent,
+    PhTopbarHeaderComponent,
+    PhDropAreaComponent,
+    PhDropListComponent,
+    PhDropListItemComponent
   ],
   imports: [
     BrowserModule
@@ -52,7 +64,13 @@ import { BrowserModule } from '@angular/platform-browser';
     PhContextMenuItemComponent,
     PhSliderComponent,
     PhDropdownComponent,
-    PhDropdownItemComponent
+    PhDropdownItemComponent,
+    PhSidebarItemComponent,
+    PhTopbarItemComponent,
+    PhTopbarHeaderComponent,
+    PhDropAreaComponent,
+    PhDropListComponent,
+    PhDropListItemComponent
   ],
   providers: [],
   bootstrap: []

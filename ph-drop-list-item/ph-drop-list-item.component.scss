@@ -1,0 +1,12 @@
+:host {
+    height: 64px;
+    background-color: #252526;
+    margin: 4px;
+
+    display: flex;
+}
+
+div.content.dragged {
+    position: absolute;
+}
+
