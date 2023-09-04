@@ -6,7 +6,8 @@
     display: flex;
 }
 
-div.content.dragged {
-    position: absolute;
+div.content {
+    display: flex;
+    flex-grow: 1;
 }
 
