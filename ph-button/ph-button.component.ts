@@ -8,8 +8,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 export class PhButtonComponent implements OnInit {
 
   @Input() value: string | number = '';
-
-  public isActive: boolean = false;
+  @Input() isActive: boolean = false;
 
   constructor() { }
 
