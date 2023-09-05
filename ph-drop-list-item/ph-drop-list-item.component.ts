@@ -12,6 +12,7 @@ export class PhDropListItemComponent implements OnInit {
 
   public onDragStart: Subject<any> = new Subject<any>();
   public onDragStop: Subject<any> = new Subject<any>();
+  public onMouseOver: Subject<any> = new Subject<any>();
 
   private dragStartCoursor = { x: 0, y: 0 };
   private dragStartElement = { x: 0, y: 0 };
@@ -39,6 +40,8 @@ export class PhDropListItemComponent implements OnInit {
     this.ref.nativeElement.style.width = `${rect.width}px`;
     this.ref.nativeElement.style.height = `${rect.height}px`;
     this.ref.nativeElement.style.pointerEvents = "none";
+    this.ref.nativeElement.style.left = `${ this.dragStartElement.x + ev.x - this.dragStartCoursor.x}px`;
+    this.ref.nativeElement.style.top = `${this.dragStartElement.y + ev.y - this.dragStartCoursor.y}px`;
 
     window.addEventListener("mousemove", this.handleDrag);
     window.addEventListener("mouseup", this.handleDragStop);

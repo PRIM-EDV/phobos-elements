@@ -1,8 +1,31 @@
+/* width */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    display: none;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    display: none;
+}
+
 :host {
     display: flex;
     flex-direction: column;
 
     background-color: #1b1b1b;
+    overflow: hidden;
+
 }
 
 div.list {
@@ -13,9 +36,24 @@ div.list {
 
     padding-top: 2px;
     align-items: stretch;
+
+    overflow: auto;
 }
 
+
+div.empty {
+    display: flex;
+    flex-grow: 1;
+    border-right: 2px solid #28343e;
+}
+
+
 :host:last-child div.list {
+    border-right: none !important;
+    border-left: none !important;
+}
+
+:host:last-child div.empty {
     border-right: none !important;
     border-left: none !important;
 }

@@ -1,4 +1,7 @@
 <div class="header">{{header}}</div>
-<div class="list">
+<div class="list" (mouseover)="handleItemMouseOver($event)" (mouseout)="handleMouseOut($event)">
     <ng-content></ng-content>
 </div>
+<!-- <div class="empty">
+
+</div> -->
