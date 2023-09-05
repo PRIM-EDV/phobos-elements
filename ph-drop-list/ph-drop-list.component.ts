@@ -29,6 +29,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     this.itemComponents.changes.subscribe((changes) => {
+      console.log("change")
       this.fixPositions(changes);
       changes.forEach((change : any) => {
         const dragStartsub = change.onDragStart.subscribe((item: any) => {this.draggedItem = item;}) as Subscription;

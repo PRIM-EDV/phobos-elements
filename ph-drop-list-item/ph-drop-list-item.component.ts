@@ -27,6 +27,10 @@ export class PhDropListItemComponent implements OnInit {
   handleDragStart(ev: MouseEvent) {
     ev.preventDefault();
 
+    if (ev.button != 0) {
+      return;
+    }
+
     this.onDragStart.next(this.data);
 
     const rect = this.ref.nativeElement.getBoundingClientRect();
