@@ -55,7 +55,7 @@ export class PhDropListItemComponent implements OnInit {
     window.removeEventListener("mousemove", this.handleDrag);
     window.removeEventListener("mouseup", this.handleDragStop);
 
-    this.onDragStart.next(this.data);
+    this.onDragStop.next(this.data);
 
     this.ref.nativeElement.style.position = null;
     this.ref.nativeElement.style.width = null;
