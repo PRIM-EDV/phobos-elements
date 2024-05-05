@@ -14,13 +14,13 @@ import { PhContextMenuItemComponent } from './ph-context-menu-item/ph-context-me
 import { PhSliderComponent } from './ph-slider/ph-slider.component';
 import { PhDropdownComponent } from './ph-dropdown/ph-dropdown.component';
 import { PhDropdownItemComponent } from './ph-dropdown-item/ph-dropdown-item.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { PhSidebarItemComponent } from './ph-sidebar-item/ph-sidebar-item.component';
 import { PhTopbarItemComponent } from './ph-topbar-item/ph-topbar-item.component';
 import { PhTopbarHeaderComponent } from './ph-topbar-header/ph-topbar-header.component';
 import { PhDropAreaComponent } from './ph-drop-area/ph-drop-area.component';
 import { PhDropListComponent } from './ph-drop-list/ph-drop-list.component';
 import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,7 @@ import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.c
     PhDropListItemComponent
   ],
   imports: [
-    BrowserModule
+    CommonModule
   ],
   exports: [
     PhWindowComponent,
