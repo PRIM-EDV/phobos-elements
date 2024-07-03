@@ -21,9 +21,10 @@ import { PhDropAreaComponent } from './ph-drop-area/ph-drop-area.component';
 import { PhDropListComponent } from './ph-drop-list/ph-drop-list.component';
 import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.component';
 import { CommonModule } from '@angular/common';
-
+import { PhGroupComponent } from './ph-group/ph-group.component';
 @NgModule({
   declarations: [
+    PhGroupComponent,
     PhWindowComponent,
     PhButtonSelectComponent,
     PhSidebarComponent,
@@ -50,6 +51,7 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   exports: [
+    PhGroupComponent,
     PhWindowComponent,
     PhSidebarComponent,
     PhTopbarComponent,
