@@ -16,21 +16,21 @@ export class PhButtonSelectComponent implements OnInit, AfterContentInit, AfterV
 
   @Input() label: string = '';
 
-  @Output() valueChange: EventEmitter<string | number> = new EventEmitter<string | number>();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   @ContentChildren(PhButtonComponent) buttonComponents!: QueryList<PhButtonComponent>;
 
-  private _value: string | number = '';
+  private _value: any = '';
 
   constructor() { }
 
   @Input()
-  public set value(value: string | number) {
+  public set value(value: any) {
     this._value = value;
     this.updateButtonStates();
   }
 
-  public get value(): string | number {
+  public get value(): any {
     return this._value;
   }
 
