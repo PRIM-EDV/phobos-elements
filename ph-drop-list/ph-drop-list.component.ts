@@ -15,9 +15,9 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
 
     public draggedItem: any;
-    public subscriptions: Array<Subscription> = [];
 
-    private position: number = 0;
+    private dropIndex = 0;
+    private subscriptions: Array<Subscription> = [];
 
     constructor() { }
 
@@ -25,46 +25,55 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
-    this.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
-        const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
-        const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem(); this.clearDragOver();}) as Subscription;
-        this.subscriptions.push(dragStartsub);
-        this.subscriptions.push(dragStopsub);
-    });
-    this.itemComponents.changes.subscribe((changes) => {
-        changes.forEach((change : any) => {
-            const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
-            const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem(); this.clearDragOver();}) as Subscription;
+        this.itemComponents.forEach((itemComponent: PhDropListItemComponent, index: number) => {
+            const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+            const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
+            const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index}) as Subscription;
+
             this.subscriptions.push(dragStartsub);
             this.subscriptions.push(dragStopsub);
+            this.subscriptions.push(dragOverSub);
+
+            itemComponent.index = index;
         });
-    });
+
+        this.itemComponents.changes.subscribe((changes) => {
+            changes.forEach((change : any, index: number) => {
+                const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+                const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
+                const dragOverSub = change.onDragOver.subscribe((item: any) => {this.dropIndex = change.index}) as Subscription;
+
+                this.subscriptions.push(dragStartsub);
+                this.subscriptions.push(dragStopsub);
+                this.subscriptions.push(dragOverSub);
+
+                change.index = index;
+            });
+        });
+    }
+
+    public handleMouseOver(ev: MouseEvent) {
+        this.dropIndex = this.itemComponents.length;
     }
 
     public handleMouseOut(ev: MouseEvent) {
-        this.clearDragOver();
+        this.dropIndex = this.itemComponents.length;
     }
 
     @HostListener('mouseup', ['$event'])
     onMouseUp(event: MouseEvent) {
-        for (const list of this.connectedLists.concat(this)) {
+        for (const list of this.connectedLists) {
             if (list.draggedItem != undefined) {
-                list.draggedItem.position = this.position;
-                this.drop.next(list.draggedItem);
-                this.position = 0;
+                this.drop.next({index: this.dropIndex, data: list.draggedItem});
                 return;
             }
         }
-    }
 
-    private clearDragOver() {
-        for (const itemComponent of this.itemComponents) {
-            // itemComponent.dragOver = false;
-        }
+        this.resetDraggedItem();
     }
 
     private setDraggedItem(item: any) {
-        for (const list of this.connectedLists.concat(this)) {
+        for (const list of this.connectedLists) {
             list.draggedItem = item;
             list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
                 itemComponent.draggedItem = item;
@@ -73,7 +82,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     }
 
     private resetDraggedItem() {
-        for (const list of this.connectedLists.concat(this)) {
+        for (const list of this.connectedLists) {
             list.draggedItem = undefined;
             list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
                 itemComponent.draggedItem = undefined;
