@@ -3,92 +3,81 @@ import { PhDropListItemComponent } from '../ph-drop-list-item/ph-drop-list-item.
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'ph-drop-list',
-  templateUrl: './ph-drop-list.component.html',
-  styleUrls: ['./ph-drop-list.component.scss']
+    selector: 'ph-drop-list',
+    templateUrl: './ph-drop-list.component.html',
+    styleUrls: ['./ph-drop-list.component.scss']
 })
 export class PhDropListComponent implements OnInit, AfterContentInit {
 
-  @Input() header: string = '';
-  @Input() connectedLists: Array<PhDropListComponent> = [];
+    @Input() header: string = '';
+    @Input() connectedLists: Array<PhDropListComponent> = [];
+    @Output() drop: EventEmitter<any> = new EventEmitter<any>();
+    @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
 
-  @Output() drop: EventEmitter<any> = new EventEmitter<any>();
+    public draggedItem: any;
+    public subscriptions: Array<Subscription> = [];
 
-  @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
+    private position: number = 0;
 
-//   public output.
-  public draggedItem: any;
-  public subscriptions: Array<Subscription> = [];
+    constructor() { }
 
-  private position: number = 0;
+    ngOnInit(): void {
+    }
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterContentInit(): void {
-    this.itemComponents.changes.subscribe((changes) => {
-      console.log("change")
-      this.fixPositions(changes);
-      changes.forEach((change : any) => {
-        const dragStartsub = change.onDragStart.subscribe((item: any) => {this.draggedItem = item;}) as Subscription;
-        const dragStopsub = change.onDragStop.subscribe((item: any) => {this.draggedItem = undefined;}) as Subscription;
+    ngAfterContentInit(): void {
+    this.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+        const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+        const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem(); this.clearDragOver();}) as Subscription;
         this.subscriptions.push(dragStartsub);
         this.subscriptions.push(dragStopsub);
-      });
     });
-  }
-
-  public handleMouseOut(ev: MouseEvent) {
-    for (const itemComponent of this.itemComponents) {
-      itemComponent.ref.nativeElement.style.paddingTop = null;
+    this.itemComponents.changes.subscribe((changes) => {
+        changes.forEach((change : any) => {
+            const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+            const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem(); this.clearDragOver();}) as Subscription;
+            this.subscriptions.push(dragStartsub);
+            this.subscriptions.push(dragStopsub);
+        });
+    });
     }
-  }
 
-  public handleItemMouseOver(ev: MouseEvent) {
-    let val = false;
-    for (const itemComponent of this.itemComponents) {
-      if (itemComponent.ref.nativeElement.contains(ev.target)) {
-        this.position = itemComponent.data.position; 
+    public handleMouseOut(ev: MouseEvent) {
+        this.clearDragOver();
+    }
+
+    @HostListener('mouseup', ['$event'])
+    onMouseUp(event: MouseEvent) {
         for (const list of this.connectedLists.concat(this)) {
-          if (list.draggedItem != undefined) {
-            val = true;
-            const rect = itemComponent.ref.nativeElement.getBoundingClientRect();
-            itemComponent.ref.nativeElement.style.paddingTop = `${rect.height}px`;
-          } 
-        }
-      } else {
-        itemComponent.ref.nativeElement.style.paddingTop = null;
-      }
-    }
-
-    if (val == false) {
-      this.position = 100;
-    }
-  }
-
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
-    for (const list of this.connectedLists.concat(this)) {
-        if (list.draggedItem != undefined) {
-          list.draggedItem.position = this.position;
-          this.drop.next(list.draggedItem);
-          this.position = 0;
-          return;
+            if (list.draggedItem != undefined) {
+                list.draggedItem.position = this.position;
+                this.drop.next(list.draggedItem);
+                this.position = 0;
+                return;
+            }
         }
     }
 
-    for (const itemComponent of this.itemComponents) {
-      itemComponent.ref.nativeElement.style.paddingTop=null;
+    private clearDragOver() {
+        for (const itemComponent of this.itemComponents) {
+            // itemComponent.dragOver = false;
+        }
     }
-  }
 
-  private fixPositions(items: QueryList<PhDropListItemComponent>) {
-    const list = Array.from(items);
-    const orderedItems = list.sort(((a, b) => a.data.position - b.data.position));
-    for (let i = 0; i < orderedItems.length; i++) {
-      orderedItems[i].data.position = i;
+    private setDraggedItem(item: any) {
+        for (const list of this.connectedLists.concat(this)) {
+            list.draggedItem = item;
+            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+                itemComponent.draggedItem = item;
+            });
+        }
     }
-  }
+
+    private resetDraggedItem() {
+        for (const list of this.connectedLists.concat(this)) {
+            list.draggedItem = undefined;
+            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+                itemComponent.draggedItem = undefined;
+            });
+        }
+    }
 }

@@ -2,27 +2,31 @@ import { Component, ElementRef, Input, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
 
 @Component({
-  selector: "ph-drop-list-item",
-  templateUrl: "./ph-drop-list-item.component.html",
-  styleUrls: ["./ph-drop-list-item.component.scss"],
+    selector: "ph-drop-list-item",
+    templateUrl: "./ph-drop-list-item.component.html",
+    styleUrls: ["./ph-drop-list-item.component.scss"],
 })
 export class PhDropListItemComponent implements OnInit {
 
-  @Input() data: any;
+    @Input() data: any;
 
-  public onDragStart: Subject<any> = new Subject<any>();
-  public onDragStop: Subject<any> = new Subject<any>();
-  public onMouseOver: Subject<any> = new Subject<any>();
+    public draggedItem: any;
+    public dropOver: boolean = false;   
 
-  private dragStartCoursor = { x: 0, y: 0 };
-  private dragStartElement = { x: 0, y: 0 };
+    public onDragStart: Subject<any> = new Subject<any>();
+    public onDragStop: Subject<any> = new Subject<any>();
+    public onMouseOver: Subject<any> = new Subject<any>();
 
-  constructor(public ref: ElementRef) {
-    this.handleDrag = this.handleDrag.bind(this);
-    this.handleDragStop = this.handleDragStop.bind(this);
-  }
+    private dragStartCoursor = { x: 0, y: 0 };
+    private dragStartElement = { x: 0, y: 0 };
+    private zIndex = 0;
 
-  ngOnInit(): void {}
+    constructor(public ref: ElementRef) {
+        this.handleDrag = this.handleDrag.bind(this);
+        this.handleDragStop = this.handleDragStop.bind(this);
+    }
+
+    ngOnInit(): void {}
 
   handleDragStart(ev: MouseEvent) {
     ev.preventDefault();
@@ -40,12 +44,15 @@ export class PhDropListItemComponent implements OnInit {
       y: this.ref.nativeElement.offsetTop,
     };
 
+    this.zIndex = this.ref.nativeElement.style.zIndex;
+
     this.ref.nativeElement.style.position = "absolute";
     this.ref.nativeElement.style.width = `${rect.width}px`;
     this.ref.nativeElement.style.height = `${rect.height}px`;
     this.ref.nativeElement.style.pointerEvents = "none";
     this.ref.nativeElement.style.left = `${ this.dragStartElement.x + ev.x - this.dragStartCoursor.x}px`;
     this.ref.nativeElement.style.top = `${this.dragStartElement.y + ev.y - this.dragStartCoursor.y}px`;
+    this.ref.nativeElement.style.zIndex = "1000";
 
     window.addEventListener("mousemove", this.handleDrag);
     window.addEventListener("mouseup", this.handleDragStop);
@@ -70,5 +77,17 @@ export class PhDropListItemComponent implements OnInit {
     this.ref.nativeElement.style.left = null;
     this.ref.nativeElement.style.top = null;
     this.ref.nativeElement.style.pointerEvents = null;
+    this.ref.nativeElement.style.zIndex = this.zIndex;
+  }
+
+  handleDropOver(ev: MouseEvent) {
+    if (this.draggedItem !== undefined) {
+        this.dropOver = true;
+        console.log("drop over");
+    }
+  }
+
+  handleDropLeave(ev: MouseEvent) {
+    this.dropOver = false;
   }
 }
