@@ -28,7 +28,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
         this.itemComponents.forEach((itemComponent: PhDropListItemComponent, index: number) => {
             const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
             const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
-            const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index}) as Subscription;
+            const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index;}) as Subscription;
 
             this.subscriptions.push(dragStartsub);
             this.subscriptions.push(dragStopsub);
@@ -38,22 +38,23 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
         });
 
         this.itemComponents.changes.subscribe((changes) => {
+            this.clearSubscriptions();
+
             changes.forEach((change : any, index: number) => {
                 const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
                 const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
-                const dragOverSub = change.onDragOver.subscribe((item: any) => {this.dropIndex = change.index}) as Subscription;
+                const dragOverSub = change.onDragOver.subscribe((item: any) => {this.dropIndex = change.index;}) as Subscription;
 
                 this.subscriptions.push(dragStartsub);
                 this.subscriptions.push(dragStopsub);
                 this.subscriptions.push(dragOverSub);
-
                 change.index = index;
             });
         });
     }
 
     public handleMouseOver(ev: MouseEvent) {
-        this.dropIndex = this.itemComponents.length;
+
     }
 
     public handleMouseOut(ev: MouseEvent) {
@@ -62,14 +63,17 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
 
     @HostListener('mouseup', ['$event'])
     onMouseUp(event: MouseEvent) {
-        for (const list of this.connectedLists) {
-            if (list.draggedItem != undefined) {
-                this.drop.next({index: this.dropIndex, data: list.draggedItem});
-                return;
-            }
+        if (this.draggedItem != undefined) {
+            this.drop.next({index: this.dropIndex, data: this.draggedItem});
         }
-
         this.resetDraggedItem();
+    }
+
+    private clearSubscriptions() {
+        this.subscriptions.forEach((sub: Subscription) => {
+            sub.unsubscribe();
+        });
+        this.subscriptions = [];
     }
 
     private setDraggedItem(item: any) {
