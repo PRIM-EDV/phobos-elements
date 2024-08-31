@@ -3,92 +3,94 @@ import { PhDropListItemComponent } from '../ph-drop-list-item/ph-drop-list-item.
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'ph-drop-list',
-  templateUrl: './ph-drop-list.component.html',
-  styleUrls: ['./ph-drop-list.component.scss']
+    selector: 'ph-drop-list',
+    templateUrl: './ph-drop-list.component.html',
+    styleUrls: ['./ph-drop-list.component.scss']
 })
 export class PhDropListComponent implements OnInit, AfterContentInit {
 
-  @Input() header: string = '';
-  @Input() connectedLists: Array<PhDropListComponent> = [];
+    @Input() header: string = '';
+    @Input() connectedLists: Array<PhDropListComponent> = [];
+    @Output() drop: EventEmitter<any> = new EventEmitter<any>();
+    @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
 
-  @Output() drop: EventEmitter<any> = new EventEmitter<any>();
+    public draggedItem: any;
 
-  @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
+    private dropIndex = 0;
+    private subscriptions: Array<Subscription> = [];
 
-//   public output.
-  public draggedItem: any;
-  public subscriptions: Array<Subscription> = [];
+    constructor() { }
 
-  private position: number = 0;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  ngAfterContentInit(): void {
-    this.itemComponents.changes.subscribe((changes) => {
-      console.log("change")
-      this.fixPositions(changes);
-      changes.forEach((change : any) => {
-        const dragStartsub = change.onDragStart.subscribe((item: any) => {this.draggedItem = item;}) as Subscription;
-        const dragStopsub = change.onDragStop.subscribe((item: any) => {this.draggedItem = undefined;}) as Subscription;
-        this.subscriptions.push(dragStartsub);
-        this.subscriptions.push(dragStopsub);
-      });
-    });
-  }
-
-  public handleMouseOut(ev: MouseEvent) {
-    for (const itemComponent of this.itemComponents) {
-      itemComponent.ref.nativeElement.style.paddingTop = null;
+    ngOnInit(): void {
     }
-  }
 
-  public handleItemMouseOver(ev: MouseEvent) {
-    let val = false;
-    for (const itemComponent of this.itemComponents) {
-      if (itemComponent.ref.nativeElement.contains(ev.target)) {
-        this.position = itemComponent.data.position; 
-        for (const list of this.connectedLists.concat(this)) {
-          if (list.draggedItem != undefined) {
-            val = true;
-            const rect = itemComponent.ref.nativeElement.getBoundingClientRect();
-            itemComponent.ref.nativeElement.style.paddingTop = `${rect.height}px`;
-          } 
+    ngAfterContentInit(): void {
+        this.itemComponents.forEach((itemComponent: PhDropListItemComponent, index: number) => {
+            const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+            const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
+            const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index;}) as Subscription;
+
+            this.subscriptions.push(dragStartsub);
+            this.subscriptions.push(dragStopsub);
+            this.subscriptions.push(dragOverSub);
+
+            itemComponent.index = index;
+        });
+
+        this.itemComponents.changes.subscribe((changes) => {
+            this.clearSubscriptions();
+
+            changes.forEach((change : any, index: number) => {
+                const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
+                const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
+                const dragOverSub = change.onDragOver.subscribe((item: any) => {this.dropIndex = change.index;}) as Subscription;
+
+                this.subscriptions.push(dragStartsub);
+                this.subscriptions.push(dragStopsub);
+                this.subscriptions.push(dragOverSub);
+                change.index = index;
+            });
+        });
+    }
+
+    public handleMouseOver(ev: MouseEvent) {
+
+    }
+
+    public handleMouseOut(ev: MouseEvent) {
+        this.dropIndex = this.itemComponents.length;
+    }
+
+    @HostListener('mouseup', ['$event'])
+    onMouseUp(event: MouseEvent) {
+        if (this.draggedItem != undefined) {
+            this.drop.next({index: this.dropIndex, data: this.draggedItem});
         }
-      } else {
-        itemComponent.ref.nativeElement.style.paddingTop = null;
-      }
+        this.resetDraggedItem();
     }
 
-    if (val == false) {
-      this.position = 100;
+    private clearSubscriptions() {
+        this.subscriptions.forEach((sub: Subscription) => {
+            sub.unsubscribe();
+        });
+        this.subscriptions = [];
     }
-  }
 
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(event: MouseEvent) {
-    for (const list of this.connectedLists.concat(this)) {
-        if (list.draggedItem != undefined) {
-          list.draggedItem.position = this.position;
-          this.drop.next(list.draggedItem);
-          this.position = 0;
-          return;
+    private setDraggedItem(item: any) {
+        for (const list of this.connectedLists) {
+            list.draggedItem = item;
+            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+                itemComponent.draggedItem = item;
+            });
         }
     }
 
-    for (const itemComponent of this.itemComponents) {
-      itemComponent.ref.nativeElement.style.paddingTop=null;
+    private resetDraggedItem() {
+        for (const list of this.connectedLists) {
+            list.draggedItem = undefined;
+            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+                itemComponent.draggedItem = undefined;
+            });
+        }
     }
-  }
-
-  private fixPositions(items: QueryList<PhDropListItemComponent>) {
-    const list = Array.from(items);
-    const orderedItems = list.sort(((a, b) => a.data.position - b.data.position));
-    for (let i = 0; i < orderedItems.length; i++) {
-      orderedItems[i].data.position = i;
-    }
-  }
 }

@@ -23,8 +23,10 @@ import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.c
 import { CommonModule } from '@angular/common';
 import { PhSliderVerticalComponent } from './ph-slider-vertical/ph-slider-vertical.component';
 
+import { PhGroupComponent } from './ph-group/ph-group.component';
 @NgModule({
   declarations: [
+    PhGroupComponent,
     PhWindowComponent,
     PhButtonSelectComponent,
     PhSidebarComponent,
@@ -52,6 +54,7 @@ import { PhSliderVerticalComponent } from './ph-slider-vertical/ph-slider-vertic
     CommonModule
   ],
   exports: [
+    PhGroupComponent,
     PhWindowComponent,
     PhSidebarComponent,
     PhTopbarComponent,
