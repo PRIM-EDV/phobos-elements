@@ -21,6 +21,7 @@ import { PhDropAreaComponent } from './ph-drop-area/ph-drop-area.component';
 import { PhDropListComponent } from './ph-drop-list/ph-drop-list.component';
 import { PhDropListItemComponent } from './ph-drop-list-item/ph-drop-list-item.component';
 import { CommonModule } from '@angular/common';
+import { PhSliderVerticalComponent } from './ph-slider-vertical/ph-slider-vertical.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CommonModule } from '@angular/common';
     PhContextMenuComponent,
     PhContextMenuItemComponent,
     PhSliderComponent,
+    PhSliderVerticalComponent,
     PhDropdownComponent,
     PhDropdownItemComponent,
     PhSidebarItemComponent,
@@ -63,6 +65,7 @@ import { CommonModule } from '@angular/common';
     PhContextMenuComponent,
     PhContextMenuItemComponent,
     PhSliderComponent,
+    PhSliderVerticalComponent,
     PhDropdownComponent,
     PhDropdownItemComponent,
     PhSidebarItemComponent,
