@@ -2,8 +2,9 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-window',
+  standalone: false,
+  styleUrls: ['./ph-window.component.scss'],
   templateUrl: './ph-window.component.html',
-  styleUrls: ['./ph-window.component.scss']
 })
 export class PhWindowComponent implements OnInit {
 

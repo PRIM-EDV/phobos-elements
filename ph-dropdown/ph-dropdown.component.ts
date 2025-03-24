@@ -3,8 +3,9 @@ import { PhDropdownItemComponent } from '../ph-dropdown-item/ph-dropdown-item.co
 
 @Component({
   selector: 'ph-dropdown',
-  templateUrl: './ph-dropdown.component.html',
-  styleUrls: ['./ph-dropdown.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-dropdown.component.scss'],
+  templateUrl: './ph-dropdown.component.html'
 })
 export class PhDropdownComponent implements OnInit, AfterContentInit {
 

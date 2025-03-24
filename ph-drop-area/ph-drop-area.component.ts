@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ph-drop-area',
-  templateUrl: './ph-drop-area.component.html',
-  styleUrls: ['./ph-drop-area.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-drop-area.component.scss'],
+  templateUrl: './ph-drop-area.component.html'
 })
 export class PhDropAreaComponent implements OnInit {
 

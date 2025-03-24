@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-form',
-  templateUrl: './ph-form.component.html',
-  styleUrls: ['./ph-form.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-form.component.scss'],
+  templateUrl: './ph-form.component.html'
 })
 export class PhFormComponent implements OnInit {
 

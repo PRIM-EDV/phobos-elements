@@ -2,8 +2,9 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, O
 
 @Component({
   selector: 'ph-slider-vertical',
-  templateUrl: './ph-slider-vertical.component.html',
-  styleUrls: ['./ph-slider-vertical.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-slider-vertical.component.scss'],
+  templateUrl: './ph-slider-vertical.component.html'
 })
 export class PhSliderVerticalComponent implements OnChanges, AfterViewInit  {
     public active = 0;

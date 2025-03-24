@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ph-sidebar-item',
-  templateUrl: './ph-sidebar-item.component.html',
-  styleUrls: ['./ph-sidebar-item.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-sidebar-item.component.scss'],
+  templateUrl: './ph-sidebar-item.component.html'
 })
 export class PhSidebarItemComponent {
 

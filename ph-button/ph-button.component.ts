@@ -2,8 +2,9 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-button',
-  templateUrl: './ph-button.component.html',
-  styleUrls: ['./ph-button.component.scss']
+  standalone: false,
+  styleUrls: ['./ph-button.component.scss'],
+  templateUrl: './ph-button.component.html'
 })
 export class PhButtonComponent implements OnInit {
 
