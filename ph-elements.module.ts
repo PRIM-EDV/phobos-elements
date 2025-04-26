@@ -24,6 +24,7 @@ import { CommonModule } from '@angular/common';
 import { PhSliderVerticalComponent } from './ph-slider-vertical/ph-slider-vertical.component';
 
 import { PhGroupComponent } from './ph-group/ph-group.component';
+import { PhErrorComponent } from './ph-error/ph-error.component';
 @NgModule({
   declarations: [
     PhGroupComponent,
@@ -48,7 +49,8 @@ import { PhGroupComponent } from './ph-group/ph-group.component';
     PhTopbarHeaderComponent,
     PhDropAreaComponent,
     PhDropListComponent,
-    PhDropListItemComponent
+    PhDropListItemComponent,
+    PhErrorComponent
   ],
   imports: [
     CommonModule
@@ -76,7 +78,8 @@ import { PhGroupComponent } from './ph-group/ph-group.component';
     PhTopbarHeaderComponent,
     PhDropAreaComponent,
     PhDropListComponent,
-    PhDropListItemComponent
+    PhDropListItemComponent,
+    PhErrorComponent
   ],
   providers: [],
   bootstrap: []
