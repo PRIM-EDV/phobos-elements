@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-sidebar',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ph-sidebar.component.html'
 })
 export class PhSidebarComponent implements OnInit {
+  @Input() public icon: string = '';
 
   constructor() { }
 
