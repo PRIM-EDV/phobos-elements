@@ -28,7 +28,7 @@ div.title-bar {
 }
 
 div.workspace {
-    background-color: the.color('background', 'primary');
+    background-color: theme.color('background', 'primary');
     margin: 0 2px 2px 2px;
     display: flex;
     flex-direction: column;

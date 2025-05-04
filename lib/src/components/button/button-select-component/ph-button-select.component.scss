@@ -1,15 +1,16 @@
-:host {
+@use "../../../styles/theming.scss" as theme;
 
+:host {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
 
     height: 18px;
-    background-color: #23282b;
+    background-color: theme.color('background', 'primary-dark');
 
 
     div.label {
-        background-color: #3ea2dd;
+        background-color: theme.color('accent', 'primary');
         font-family: 'Fira Code';
         font-size: 12px;
         font-weight: 500;
@@ -34,7 +35,7 @@ ph-group :host {
 
     div.label {
         background-color: transparent !important;
-        color: #a9aaac !important;
+        color: theme.color('text', 'secondary') !important;
         font-weight: unset !important;
     }
 }

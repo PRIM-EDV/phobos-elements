@@ -1,24 +1,21 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, Input, OnInit, Output, QueryList, EventEmitter } from '@angular/core';
-import { PhButtonComponent } from '../ph-button/ph-button.component';
 
+import { PhButton } from '../button-component/ph-button.component';
 
-export interface PhButtonListOption {
-  label: string;
-  func: any;
-}
 
 @Component({
   selector: 'ph-button-select',
-  templateUrl: './ph-button-select.component.html',
-  styleUrls: ['./ph-button-select.component.scss']
+  standalone: true,
+  styleUrls: ['./ph-button-select.component.scss'],
+  templateUrl: './ph-button-select.component.html'
 })
-export class PhButtonSelectComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class PhButtonSelect implements OnInit, AfterContentInit, AfterViewInit {
 
   @Input() label: string = '';
 
   @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
-  @ContentChildren(PhButtonComponent) buttonComponents!: QueryList<PhButtonComponent>;
+  @ContentChildren(PhButton) buttonComponents!: QueryList<PhButton>;
 
   private _value: any = '';
 
@@ -45,7 +42,7 @@ export class PhButtonSelectComponent implements OnInit, AfterContentInit, AfterV
   ngAfterViewInit(): void {
   }
 
-  onButtonClick(target: PhButtonComponent, evt: MouseEvent): void {
+  onButtonClick(target: PhButton, evt: MouseEvent): void {
     this.value = target.value;
     this.updateButtonStates();
     this.valueChange.emit(this.value);
