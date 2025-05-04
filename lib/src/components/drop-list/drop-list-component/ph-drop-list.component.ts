@@ -1,18 +1,20 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, HostListener, Input, OnInit, Output, QueryList } from '@angular/core';
-import { PhDropListItemComponent } from '../ph-drop-list-item/ph-drop-list-item.component';
 import { Subscription } from 'rxjs';
+
+import { PhDropListItem } from '../drop-list-item-component/ph-drop-list-item.component';
 
 @Component({
     selector: 'ph-drop-list',
-    templateUrl: './ph-drop-list.component.html',
-    styleUrls: ['./ph-drop-list.component.scss']
+    standalone: true,
+    styleUrls: ['./ph-drop-list.component.scss'],
+    templateUrl: './ph-drop-list.component.html'
 })
-export class PhDropListComponent implements OnInit, AfterContentInit {
+export class PhDropList implements OnInit, AfterContentInit {
 
     @Input() header: string = '';
-    @Input() connectedLists: Array<PhDropListComponent> = [];
+    @Input() connectedLists: Array<PhDropList> = [];
     @Output() drop: EventEmitter<any> = new EventEmitter<any>();
-    @ContentChildren(PhDropListItemComponent) itemComponents!: QueryList<PhDropListItemComponent>;
+    @ContentChildren(PhDropListItem) itemComponents!: QueryList<PhDropListItem>;
 
     public draggedItem: any;
 
@@ -25,7 +27,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
-        this.itemComponents.forEach((itemComponent: PhDropListItemComponent, index: number) => {
+        this.itemComponents.forEach((itemComponent: PhDropListItem, index: number) => {
             const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
             const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
             const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index;}) as Subscription;
@@ -79,7 +81,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     private setDraggedItem(item: any) {
         for (const list of this.connectedLists) {
             list.draggedItem = item;
-            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+            list.itemComponents.forEach((itemComponent: PhDropListItem) => {
                 itemComponent.draggedItem = item;
             });
         }
@@ -88,7 +90,7 @@ export class PhDropListComponent implements OnInit, AfterContentInit {
     private resetDraggedItem() {
         for (const list of this.connectedLists) {
             list.draggedItem = undefined;
-            list.itemComponents.forEach((itemComponent: PhDropListItemComponent) => {
+            list.itemComponents.forEach((itemComponent: PhDropListItem) => {
                 itemComponent.draggedItem = undefined;
             });
         }

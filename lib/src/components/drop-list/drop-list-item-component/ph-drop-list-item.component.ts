@@ -3,10 +3,11 @@ import { Subject } from "rxjs";
 
 @Component({
     selector: "ph-drop-list-item",
-    templateUrl: "./ph-drop-list-item.component.html",
+    standalone: true,
     styleUrls: ["./ph-drop-list-item.component.scss"],
+    templateUrl: "./ph-drop-list-item.component.html"
 })
-export class PhDropListItemComponent implements OnInit {
+export class PhDropListItem implements OnInit {
 
     @Input() data: any;
 

@@ -1,3 +1,5 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     margin: 4px;
 
@@ -7,7 +9,7 @@
 
 div.content {
     padding: 0 0 6px 0;
-    background-color: #252526;
+    background-color: theme.color('background', 'secondary');
     display: flex;
     flex-grow: 1;
 
