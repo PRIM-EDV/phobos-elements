@@ -1,1 +1,2 @@
-export * from './src/window';
+export * from './src/components/window';
+

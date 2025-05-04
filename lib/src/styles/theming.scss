@@ -1,0 +1,26 @@
+$phobos-theme: (
+    text: (
+        primary: #ffffff,
+        secondary: #a9aaac,
+    ), 
+    accent: (
+        primary: #3ea2dd,
+        primary-light: lighten(#3ea2dd, 20%),
+        primary-dark: darken(#3ea2dd, 20%),
+
+        secondary: #f8a403,
+        secondary-light: lighten(#f8a403, 20%),
+        secondary-dark: darken(#f8a403, 20%),
+    ),
+    background: (
+        primary: #28343e,
+        primary-dark: #23282b,
+
+        secondary: #252526,
+        secondary-dark: #1e1e1e,
+    ),
+);
+
+@function color($category, $color-name) {
+    @return map-get(map-get($phobos-theme, $category), $color-name);
+}
