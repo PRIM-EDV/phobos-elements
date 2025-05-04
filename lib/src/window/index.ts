@@ -1,0 +1,1 @@
+export * from "./window-component/ph-window.component"

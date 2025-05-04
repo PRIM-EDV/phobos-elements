@@ -2,10 +2,11 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-window',
+  standalone: true,
   templateUrl: './ph-window.component.html',
   styleUrls: ['./ph-window.component.scss']
 })
-export class PhWindowComponent implements OnInit {
+export class PhWindow implements OnInit {
 
   @Input() public title = '';
   @Input() public subtitle = '';

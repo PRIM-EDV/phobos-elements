@@ -1,5 +1,5 @@
 {
-  "name": "phobos-elements",
+  "name": "@phobos/elements",
   "version": "0.2.0",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
