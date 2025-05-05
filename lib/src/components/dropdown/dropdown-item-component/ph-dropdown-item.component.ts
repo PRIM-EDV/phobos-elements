@@ -2,10 +2,11 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-dropdown-item',
-  templateUrl: './ph-dropdown-item.component.html',
-  styleUrls: ['./ph-dropdown-item.component.scss']
+  standalone: true,
+  styleUrls: ['./ph-dropdown-item.component.scss'],
+  templateUrl: './ph-dropdown-item.component.html'
 })
-export class PhDropdownItemComponent implements OnInit {
+export class PhDropdownItem implements OnInit {
 
     @Input() label: string = "";
     @Input() value: any = "";

@@ -1,3 +1,5 @@
+@use "../../../styles/theming.scss" as theme;
+
 ::-webkit-scrollbar {     
     background-color: #1e1e1e;
     width: 6px;
@@ -14,11 +16,11 @@
     grid-template-rows: 1fr;
 
     height: 18px;
-    background-color: #23282b;
+    background-color: theme.color('background', 'primary-dark');
 
 
     div.label {
-        background-color: #3ea2dd;
+        background-color: theme.color('accent', 'primary');
         font-family: 'Fira Code';
         font-size: 12px;
         font-weight: 500;
@@ -40,12 +42,12 @@
             position: relative;
             display: grid;
             grid-template-columns: 1fr 23px;
-            background-color: #1e1e1e;
+            background-color: theme.color('background', 'secondary-dark');
             overflow: hidden;
 
 
             div.arrow {
-                color: #a9aaac;
+                color: theme.color('text', 'secondary');
                 width: 20px;
                 font-family: 'Elegant Icons';
                 background-size: contain;
@@ -59,7 +61,7 @@
 
             div.value {
                 box-sizing: border-box;
-                color: #a9aaac;
+                color: theme.color('text', 'secondary');
                 font-family: 'Fira Code';
                 text-align: right;
                 font-size: 12px;
@@ -107,7 +109,7 @@ div.dd-box {
         max-height: 100px;
         position: absolute;
         top: 24px;
-        background-color: #252525;
+        background-color: theme.color('background', 'secondary');
         z-index: 999;
         overflow-y: scroll;
 

@@ -1,5 +1,7 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
-    color: #a9aaac;
+    color: theme.color('text', 'secondary');
     font-family: 'Fira Code';
     text-align: right;
     font-size: 12px;
@@ -12,5 +14,5 @@
 }
 
 :host:hover {
-    background-color: #27343e;
+    background-color: theme.color('background', 'primary');
 }

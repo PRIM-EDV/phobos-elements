@@ -1,15 +1,17 @@
 import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
-import { PhDropdownItemComponent } from '../ph-dropdown-item/ph-dropdown-item.component';
+
+import { PhDropdownItem } from '../dropdown-item-component/ph-dropdown-item.component';
 
 @Component({
   selector: 'ph-dropdown',
-  templateUrl: './ph-dropdown.component.html',
-  styleUrls: ['./ph-dropdown.component.scss']
+  standalone: true,
+  styleUrls: ['./ph-dropdown.component.scss'],
+  templateUrl: './ph-dropdown.component.html'
 })
-export class PhDropdownComponent implements OnInit, AfterContentInit {
+export class PhDropdown implements OnInit, AfterContentInit {
 
     @ViewChild('dropdown') dropdown!: ElementRef<HTMLDivElement>;
-    @ContentChildren(PhDropdownItemComponent) items!: QueryList<PhDropdownItemComponent>;
+    @ContentChildren(PhDropdownItem) items!: QueryList<PhDropdownItem>;
 
     @Input() label: string = "";
     @Input() value: any = "";
@@ -40,7 +42,7 @@ export class PhDropdownComponent implements OnInit, AfterContentInit {
         }
     }
 
-    onItemClick(target: PhDropdownItemComponent, evt: MouseEvent): void {
+    onItemClick(target: PhDropdownItem, evt: MouseEvent): void {
         this.value = target.value;
         this.valueLabel = target.label;
         this.valueChange.emit(this.value);
