@@ -1,9 +1,11 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     position: absolute;
     display: flex;
     flex-direction: column;
 
-    background-color: #1b1b1b;
+    background-color: theme.color("background", "secondary-dark");
 
     padding-top: 4px;
     padding-bottom: 4px;
