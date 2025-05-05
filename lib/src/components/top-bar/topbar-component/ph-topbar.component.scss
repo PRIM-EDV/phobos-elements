@@ -1,0 +1,6 @@
+@use "../../../styles/theming.scss" as theme;
+
+:host {
+    background-color: theme.color("background", "secondary-dark");
+    display: flex;
+}

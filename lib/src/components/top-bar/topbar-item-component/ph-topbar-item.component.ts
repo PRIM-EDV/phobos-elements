@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ph-topbar-item',
-  templateUrl: './ph-topbar-item.component.html',
-  styleUrls: ['./ph-topbar-item.component.scss']
+  standalone: true,
+  styleUrls: ['./ph-topbar-item.component.scss'],
+  templateUrl: './ph-topbar-item.component.html'
 })
-export class PhTopbarItemComponent implements OnInit {
+export class PhTopbarItem implements OnInit {
 
   @Input() label: string = '';
 

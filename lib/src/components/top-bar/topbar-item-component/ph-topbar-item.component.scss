@@ -1,8 +1,10 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     display: flex;
     align-items: center;
     height: 27px;
-    background-color: #252526;
+    background-color: theme.color("background", "secondary");
 
     padding: 2px 12px 0px 12px;
 
@@ -13,14 +15,14 @@
 
 :host:hover {
     cursor: pointer;
-    border-bottom: 3px solid #f7a40d;
+    border-bottom: 3px solid theme.color("accent", "secondary");
 }
 
 span.label {
     font-size: 12px;
-    color: #a9aaac;
+    color: theme.color("text", "secondary");;
 }
 
 :host:hover span.label {
-    color: #fff;
+    color: theme.color("text", "primary");
 }

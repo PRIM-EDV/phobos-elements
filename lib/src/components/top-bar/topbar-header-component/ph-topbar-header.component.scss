@@ -1,15 +1,17 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     display: flex;
     align-items: center;
     height: 27px;
-    background-color: #252526;
+    background-color: theme.color("background", "secondary");
 
     padding: 2px 24px 0px 12px;
 
     min-width: 192px;
 
     font-family: 'Fira Code';
-    border-bottom: 3px solid #28343e;
+    border-bottom: 3px solid theme.color("background", "primary");
 }
 
 span.title {
