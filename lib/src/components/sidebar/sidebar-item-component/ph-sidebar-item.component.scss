@@ -1,0 +1,21 @@
+@use "../../../styles/theming.scss" as theme;
+
+:host {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    margin-bottom: 2px;
+    padding: 1px 0 0 8px;
+
+    font-family: 'Fira Code';
+    font-size: 12px;
+    color: theme.color("text", "secondary");
+
+    background-color: theme.color("background", "secondary");
+    border-right: 3px solid theme.color("accent", "secondary");
+}
+
+:host:hover {
+    color: theme.color("text", "primary");
+    cursor: pointer;
+}

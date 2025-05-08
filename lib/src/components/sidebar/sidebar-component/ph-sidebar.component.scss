@@ -1,5 +1,7 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
-    background-color: #1b1b1b;
+    background-color: theme.color("background", "secondary-dark");
 }
 
 div.icon {
@@ -11,7 +13,7 @@ div.icon {
     font-family: 'Fira Code';
 
 
-    color: #a9aaac;
+    color: theme.color("text", "secondary");
     text-align: center;
     font-size: 14px;
 }
