@@ -1,11 +1,14 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ph-slider',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './ph-slider.component.html',
   styleUrls: ['./ph-slider.component.scss']
 })
-export class PhSliderComponent implements OnChanges, AfterViewInit  {
+export class PhSlider implements OnChanges, AfterViewInit  {
     public active = 0;
 
     @Input() public label = '';
@@ -41,7 +44,6 @@ export class PhSliderComponent implements OnChanges, AfterViewInit  {
     onDragStart(idx: number) {
         this.dragged = true;
         this.active = idx;
-        console.log("Drag")
         this.update();
         this.setTick();
     }
@@ -72,7 +74,6 @@ export class PhSliderComponent implements OnChanges, AfterViewInit  {
         const p = (this.active / (this.ticks.length - 1)) * 100;
         this.track.nativeElement.style.background = `linear-gradient(90deg, #f8a403 0%, #f8a403 ${p}%, rgba(0, 0, 0, 0) ${p}%, rgba(0, 0, 0, 0) 100%)`;
         this.handle.nativeElement.style.left = `${(this.active / (this.ticks.length - 1)) * width  - 10}px`; 
-        console.log(`${(this.active / (this.ticks.length - 1)) * width  - 10}px`);
     }
 
     private update() {

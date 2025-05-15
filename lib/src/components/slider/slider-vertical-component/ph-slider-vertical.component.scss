@@ -1,3 +1,5 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     display: flex;
     flex-direction: column;
@@ -29,11 +31,9 @@ div.input {
 
             div.handle {
                 position: absolute;
-                background-color: #f8a403;
+                background-color: theme.color("accent", "secondary");
                 width: 42px;
                 height: 12px;
-                // top: -7px;
-                // left: -10px;
             }
         }
     }

@@ -2,10 +2,11 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, O
 
 @Component({
   selector: 'ph-slider-vertical',
+  standalone: true,
   templateUrl: './ph-slider-vertical.component.html',
   styleUrls: ['./ph-slider-vertical.component.scss']
 })
-export class PhSliderVerticalComponent implements OnChanges, AfterViewInit  {
+export class PhSliderVertical implements OnChanges, AfterViewInit  {
     public active = 0;
 
     @Input() public label = '';

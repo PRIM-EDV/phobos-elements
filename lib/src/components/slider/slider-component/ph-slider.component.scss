@@ -1,13 +1,15 @@
+@use "../../../styles/theming.scss" as theme;
+
 :host {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
 
-    background-color: #23282b;
+    background-color: theme.color("background", "primary-dark");
 
 
     div.label {
-        background-color: #f8a403;
+        background-color: theme.color("accent", "secondary");
         font-family: 'Fira Code';
         font-size: 12px;
         font-weight: 500;
@@ -24,14 +26,6 @@
             height: 48px;
             display: flex;
             justify-content: space-between;
-            // flex-grow: 1;
-            // float: left;
-            // position: relative;
-            // // height: 20px;
-            // padding-bottom: 6px;
-            // margin-left: 12px;
-            // margin-right: 11px;
-            // margin-top: 4px;
 
             div.tick {
                 display: grid;
@@ -45,7 +39,7 @@
                     width: 8px;
                     height: 8px;
                     border-radius: 8px;
-                    border: 2px solid #ffd27e;
+                    border: 2px solid theme.color("accent", "secondary-light");
                     user-select: none;
 
                 }
@@ -57,7 +51,7 @@
                 }
 
                 div.value {
-                    color: #a9aaac;
+                    color: theme.color("text", "secondary");
                     font-family: 'Fira Code';
                     font-size: 12px;;
                     text-align: center;
@@ -65,7 +59,7 @@
                 }
 
                 div.value.active {
-                    color: #f8a403;
+                    color: theme.color("accent", "secondary");
                 }
             }
         
@@ -81,8 +75,8 @@
 
             div.handle {
                 position: absolute;
-                background-color: #f8a403;
-                border: 2px solid #f8a403;
+                background-color: theme.color("accent", "secondary");
+                border: 2px solid theme.color("accent", "secondary");
                 width: 14px;
                 height: 14px;
                 border-radius: 14px;
