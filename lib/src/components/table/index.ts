@@ -1,0 +1,1 @@
+export * from './table-component/ph-table.component';

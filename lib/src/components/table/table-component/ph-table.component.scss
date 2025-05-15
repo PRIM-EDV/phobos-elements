@@ -1,3 +1,5 @@
+@use "../../../styles/theming.scss" as theme;
+
 /* width */
 ::-webkit-scrollbar {
     display: none;
@@ -5,8 +7,6 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    // box-shadow: inset 0 0 5px grey; 
-    // border-radius: 10px;
     display: none;
 
 }
@@ -31,13 +31,13 @@
 :host ::ng-deep {
     table {
         th {
-            color: #fff;
+            color: theme.color('text', 'primary');
             text-align: left;
             padding-left: 4px;
             font-family: 'Fira Code';
             font-size: 11px;
             font-weight: 400;
-            border-bottom: solid #28343e 2px;
+            border-bottom: solid theme.color("background", "primary") 2px;
         }
 
         td {
@@ -53,11 +53,11 @@
         }
 
         tr td:not(:last-child) {
-            border-right: solid #28343e 2px;
+            border-right: solid theme.color("background", "primary") 2px;
         }
 
         tr:last-child td{
-            border-bottom: solid #28343e 2px;
+            border-bottom: solid theme.color("background", "primary") 2px;
         }
     }
 }
@@ -72,8 +72,8 @@ div.table {
 }
 
 div.label {
-    background-color: #28343e;
-    color: #fff;
+    background-color: theme.color("background", "primary");
+    color: theme.color("text", "primary");
     font-family: 'Fira Code';
     font-size: 12px;
     font-weight: 400;
