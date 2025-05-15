@@ -1,0 +1,1 @@
+export * from './input-component/ph-input.component';

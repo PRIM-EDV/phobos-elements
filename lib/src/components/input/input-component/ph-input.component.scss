@@ -1,15 +1,16 @@
-:host {
+@use "../../../styles/theming.scss" as theme;
 
+:host {
     display: grid;
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
 
     height: 18px;
-    background-color: #23282b;
+    background-color: theme.color("background", "primary-dark");
 
 
     div.label {
-        background-color: #3ea2dd;
+        background-color: theme.color("accent", "primary");
         font-family: 'Fira Code';
         font-size: 12px;
         font-weight: 500;
@@ -27,15 +28,13 @@
         overflow: hidden;
 
         input {
-            background-color: #1e1e1e;
-            // background-color: #28343e;
+            background-color: theme.color("background", "secondary-dark");
             border-radius: 0;
             border: 0px solid;
-            border-bottom: 1px solid #1e1e1e;
+            border-bottom: 1px solid theme.color("background", "secondary-dark");
             color: #a9aaac;
             font-family: 'Fira Code';
             text-align: right;
-            // font-weight: 500;
             font-size: 12px;
             padding-left: 4px;
             padding-top: 3px;

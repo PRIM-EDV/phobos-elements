@@ -2,10 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'ph-input',
+  standalone: true,
   templateUrl: './ph-input.component.html',
   styleUrls: ['./ph-input.component.scss']
 })
-export class PhInputComponent implements OnInit {
+export class PhInput implements OnInit {
 
   @Input() label: string = "";
   @Input() type: string = "text";
