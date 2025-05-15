@@ -10,3 +10,4 @@ export * from './src/components/slider';
 export * from './src/components/input';
 export * from './src/components/form';
 export * from './src/components/table';
+export * from './src/components/command-list';
