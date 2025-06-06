@@ -2,8 +2,8 @@
   "name": "@phobos/elements",
   "version": "0.2.0",
   "peerDependencies": {
-    "@angular/common": "^18.2.0",
-    "@angular/core": "^18.2.0"
+    "@angular/common": "^19.2.14",
+    "@angular/core": "^19.2.14"
   },
   "dependencies": {
     "tslib": "^2.3.0"

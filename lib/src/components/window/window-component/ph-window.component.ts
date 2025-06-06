@@ -3,13 +3,12 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'ph-window',
-  standalone: true,
-  imports: [
-    CommonModule,
-  ],
-  templateUrl: './ph-window.component.html',
-  styleUrls: ['./ph-window.component.scss']
+    selector: 'ph-window',
+    imports: [
+        CommonModule,
+    ],
+    templateUrl: './ph-window.component.html',
+    styleUrls: ['./ph-window.component.scss']
 })
 export class PhWindow implements OnInit {
 

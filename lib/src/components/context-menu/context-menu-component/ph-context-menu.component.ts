@@ -8,11 +8,10 @@ import {
 import { PhContextMenuItem } from "../context-menu-item-component/ph-context-menu-item.component";
 
 @Component({
-  selector: "ph-context-menu",
-  standalone: true,
-  imports: [PhContextMenuItem],
-  styleUrls: ["./ph-context-menu.component.scss"],
-  templateUrl: "./ph-context-menu.component.html",
+    selector: "ph-context-menu",
+    imports: [PhContextMenuItem],
+    styleUrls: ["./ph-context-menu.component.scss"],
+    templateUrl: "./ph-context-menu.component.html"
 })
 export class PhContextMenu implements AfterViewInit {
   @Input() public entries: Array<{ label: string; action: () => Promise<void> }> = [];

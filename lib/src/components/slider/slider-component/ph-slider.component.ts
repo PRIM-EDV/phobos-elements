@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'ph-slider',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './ph-slider.component.html',
-  styleUrls: ['./ph-slider.component.scss']
+    selector: 'ph-slider',
+    imports: [CommonModule],
+    templateUrl: './ph-slider.component.html',
+    styleUrls: ['./ph-slider.component.scss']
 })
 export class PhSlider implements OnChanges, AfterViewInit  {
     public active = 0;
