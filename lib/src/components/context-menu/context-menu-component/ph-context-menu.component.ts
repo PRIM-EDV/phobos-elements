@@ -6,10 +6,14 @@ import {
 } from "@angular/core";
 
 import { PhContextMenuItem } from "../context-menu-item-component/ph-context-menu-item.component";
+import { NgFor } from "@angular/common";
 
 @Component({
     selector: "ph-context-menu",
-    imports: [PhContextMenuItem],
+    imports: [
+      NgFor,
+      PhContextMenuItem
+    ],
     styleUrls: ["./ph-context-menu.component.scss"],
     templateUrl: "./ph-context-menu.component.html"
 })
