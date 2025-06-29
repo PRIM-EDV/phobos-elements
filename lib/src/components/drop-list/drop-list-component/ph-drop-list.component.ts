@@ -1,7 +1,8 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, HostListener, Input, OnInit, Output, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, HostListener, Input, Output, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { PhDropListItem } from '../drop-list-item-component/ph-drop-list-item.component';
+import { DropListService } from '../core/drop-list.service';
 
 @Component({
     selector: 'ph-drop-list',
@@ -9,64 +10,35 @@ import { PhDropListItem } from '../drop-list-item-component/ph-drop-list-item.co
     styleUrls: ['./ph-drop-list.component.scss'],
     templateUrl: './ph-drop-list.component.html'
 })
-export class PhDropList implements OnInit, AfterContentInit {
+export class PhDropList implements AfterContentInit {
 
     @Input() header: string = '';
     @Input() connectedLists: Array<PhDropList> = [];
     @Output() drop: EventEmitter<any> = new EventEmitter<any>();
     @ContentChildren(PhDropListItem) itemComponents!: QueryList<PhDropListItem>;
 
-    public draggedItem: any;
-
     private dropIndex = 0;
     private subscriptions: Array<Subscription> = [];
 
-    constructor() { }
-
-    ngOnInit(): void {
-    }
+    constructor(
+        private readonly service: DropListService
+    ) { }
 
     ngAfterContentInit(): void {
-        this.itemComponents.forEach((itemComponent: PhDropListItem, index: number) => {
-            const dragStartsub = itemComponent.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
-            const dragStopsub = itemComponent.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
-            const dragOverSub = itemComponent.onDragOver.subscribe((item: any) => {this.dropIndex = itemComponent.index;}) as Subscription;
-
-            this.subscriptions.push(dragStartsub);
-            this.subscriptions.push(dragStopsub);
-            this.subscriptions.push(dragOverSub);
-
-            itemComponent.index = index;
-        });
-
+        this.bindOnDropEvents(this.itemComponents.toArray());
         this.itemComponents.changes.subscribe((changes) => {
-            this.clearSubscriptions();
-
-            changes.forEach((change : any, index: number) => {
-                const dragStartsub = change.onDragStart.subscribe((item: any) => {this.setDraggedItem(item)}) as Subscription;
-                const dragStopsub = change.onDragStop.subscribe((item: any) => {this.resetDraggedItem();}) as Subscription;
-                const dragOverSub = change.onDragOver.subscribe((item: any) => {this.dropIndex = change.index;}) as Subscription;
-
-                this.subscriptions.push(dragStartsub);
-                this.subscriptions.push(dragStopsub);
-                this.subscriptions.push(dragOverSub);
-                change.index = index;
-            });
+            this.bindOnDropEvents(changes.toArray());
         });
-    }
-
-    public handleMouseOver(ev: MouseEvent) {
-
     }
 
     public handleMouseOut(ev: MouseEvent) {
         this.dropIndex = this.itemComponents.length;
     }
 
-    @HostListener('mouseup', ['$event'])
+    @HostListener('document:mouseup', ['$event'])
     onMouseUp(event: MouseEvent) {
-        if (this.draggedItem != undefined) {
-            this.drop.next({index: this.dropIndex, data: this.draggedItem});
+        if (this.service.draggedItem != undefined) {
+            this.drop.next({index: this.dropIndex, data: this.service.draggedItem.data});
         }
         this.resetDraggedItem();
     }
@@ -78,21 +50,30 @@ export class PhDropList implements OnInit, AfterContentInit {
         this.subscriptions = [];
     }
 
+    private bindOnDropEvents(items: PhDropListItem[]) {
+        this.clearSubscriptions();
+
+        items.forEach((item, index) => {
+            this.subscriptions.push(
+                item.onDragStart.subscribe(() => this.setDraggedItem(item)),
+                item.onDragStop.subscribe(() => this.resetDraggedItem()),
+                item.onDragOver.subscribe(() => this.dropIndex = this.getDropIndex(this.service.draggedItem!, item))
+            );
+            item.index = index;
+        });
+    }
+
+    private getDropIndex(draggedItem: PhDropListItem, overItem: PhDropListItem) {
+        const peers = this.itemComponents.toArray().filter((item: PhDropListItem) => item !== draggedItem);
+        return peers.indexOf(overItem);
+    }
+
     private setDraggedItem(item: any) {
-        for (const list of this.connectedLists) {
-            list.draggedItem = item;
-            list.itemComponents.forEach((itemComponent: PhDropListItem) => {
-                itemComponent.draggedItem = item;
-            });
-        }
+        this.service.draggedItem = item;
     }
 
     private resetDraggedItem() {
-        for (const list of this.connectedLists) {
-            list.draggedItem = undefined;
-            list.itemComponents.forEach((itemComponent: PhDropListItem) => {
-                itemComponent.draggedItem = undefined;
-            });
-        }
+        this.service.draggedItem = undefined;
+        this.dropIndex = 0;
     }
 }

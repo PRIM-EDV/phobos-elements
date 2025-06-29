@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit } from "@angular/core";
 import { Subject } from "rxjs";
+import { DropListService } from "../core/drop-list.service";
 
 @Component({
     selector: "ph-drop-list-item",
@@ -12,7 +13,6 @@ export class PhDropListItem implements OnInit {
     @Input() data: any;
 
     public index: number = 0;
-    public draggedItem: any;
     public dropOver: boolean = false;   
 
     public onDragStart: Subject<any> = new Subject<any>();
@@ -23,7 +23,10 @@ export class PhDropListItem implements OnInit {
     private dragStartElement = { x: 0, y: 0 };
     private zIndex = 0;
 
-    constructor(public ref: ElementRef) {
+    constructor(
+        public ref: ElementRef,
+        public service: DropListService
+    ) {
         this.handleDrag = this.handleDrag.bind(this);
         this.handleDragStop = this.handleDragStop.bind(this);
     }
@@ -37,7 +40,7 @@ export class PhDropListItem implements OnInit {
             return;
         }
 
-        this.onDragStart.next(this.data);
+        this.onDragStart.next(this);
 
         const rect = this.ref.nativeElement.getBoundingClientRect();
         this.dragStartCoursor = { x: ev.x, y: ev.y };
@@ -71,7 +74,7 @@ export class PhDropListItem implements OnInit {
         window.removeEventListener("mousemove", this.handleDrag);
         window.removeEventListener("mouseup", this.handleDragStop);
 
-        this.onDragStop.next(this.data);
+        this.onDragStop.next(this);
 
         this.ref.nativeElement.style.position = null;
         this.ref.nativeElement.style.width = null;
@@ -83,7 +86,7 @@ export class PhDropListItem implements OnInit {
     }
 
   handleDropOver(ev: MouseEvent) {
-    if (this.draggedItem !== undefined) {
+    if (this.service.draggedItem !== undefined) {
         this.dropOver = true;
         this.onDragOver.next(this);
     }
