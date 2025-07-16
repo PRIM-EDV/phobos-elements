@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
 
 import { PhDropdownItem } from '../dropdown-item-component/ph-dropdown-item.component';
 
@@ -8,7 +8,7 @@ import { PhDropdownItem } from '../dropdown-item-component/ph-dropdown-item.comp
   styleUrls: ['./ph-dropdown.component.scss'],
   templateUrl: './ph-dropdown.component.html'
 })
-export class PhDropdown implements OnInit, AfterContentInit {
+export class PhDropdown implements OnInit, AfterContentInit, AfterViewInit {
 
     @ViewChild('dropdown') dropdown!: ElementRef<HTMLDivElement>;
     @ContentChildren(PhDropdownItem) items!: QueryList<PhDropdownItem>;
@@ -24,14 +24,18 @@ export class PhDropdown implements OnInit, AfterContentInit {
 
     constructor() { }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void { }
 
     ngAfterContentInit(): void {
         for(const item of this.items) {
             item.onClick = this.onItemClick.bind(this, item);
         }
-      }
+    }
+
+    ngAfterViewInit(): void {
+        this.valueLabel = this.items.find(item => item.value === this.value)?.label || this.label;
+        
+    }
     
 
     toggle() {
