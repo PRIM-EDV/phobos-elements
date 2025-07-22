@@ -7,6 +7,7 @@ export * from './src/components/top-bar';
 export * from './src/components/dropdown';
 export * from './src/components/sidebar';
 export * from './src/components/slider';
+export * from './src/components/switch';
 export * from './src/components/input';
 export * from './src/components/form';
 export * from './src/components/table';

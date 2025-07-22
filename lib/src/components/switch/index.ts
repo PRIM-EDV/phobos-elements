@@ -1,0 +1,1 @@
+export * from './switch-component/ph-switch.component';
