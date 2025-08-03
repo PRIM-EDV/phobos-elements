@@ -35,7 +35,7 @@ export class PhDropList implements AfterContentInit {
         this.dropIndex = this.itemComponents.length;
     }
 
-    @HostListener('document:mouseup', ['$event'])
+    @HostListener('mouseup', ['$event'])
     onMouseUp(event: MouseEvent) {
         if (this.service.draggedItem != undefined) {
             this.drop.next({index: this.dropIndex, data: this.service.draggedItem.data});
