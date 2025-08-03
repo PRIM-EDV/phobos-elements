@@ -12,10 +12,15 @@
     color: theme.color("text", "secondary");
 
     background-color: theme.color("background", "secondary");
+    border-right: 3px solid #2d2920;
+}
+
+:host.active {
     border-right: 3px solid theme.color("accent", "secondary");
 }
 
 :host:hover {
     color: theme.color("text", "primary");
+    border-right: 3px solid theme.color("accent", "secondary");
     cursor: pointer;
 }

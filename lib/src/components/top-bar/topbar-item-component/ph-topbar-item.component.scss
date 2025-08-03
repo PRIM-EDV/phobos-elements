@@ -13,6 +13,10 @@
     margin-left: 2px;
 }
 
+:host.active {
+    border-bottom: 3px solid theme.color("accent", "secondary");
+}
+
 :host:hover {
     cursor: pointer;
     border-bottom: 3px solid theme.color("accent", "secondary");
