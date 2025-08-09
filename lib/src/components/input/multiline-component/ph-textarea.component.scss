@@ -5,9 +5,7 @@
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
 
-    height: 18px;
     background-color: theme.color("background", "primary-dark");
-
 
     div.label {
         background-color: theme.color("accent", "primary");
@@ -21,13 +19,13 @@
         user-select: none;
     }
 
-    div.input {
+    div.textarea {
         display: flex;
         column-gap: 2px;
         flex-direction: row-reverse;
         overflow: hidden;
 
-        input {
+        textarea {
             background-color: theme.color("background", "secondary-dark");
             border-radius: 0;
             border: 0px solid;
@@ -38,11 +36,11 @@
             font-size: 12px;
             padding-left: 4px;
             padding-top: 3px;
-            height: 12px;
+            resize: none;
             width: 200px;
         }
 
-        input:focus {
+        textarea:focus {
             outline: none;
         }
     }
