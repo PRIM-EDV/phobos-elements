@@ -1,0 +1,17 @@
+@use "../../../styles/theming.scss" as theme;
+
+:host {
+    width:  52px;
+    height: 52px;
+    background-color: theme.color('background', 'secondary');
+    cursor: pointer;
+}
+
+:host.active {
+    background-color: #5a616c !important;
+    color: #000000;
+}
+
+:host:hover {
+    background-color: #5a616c !important;
+}

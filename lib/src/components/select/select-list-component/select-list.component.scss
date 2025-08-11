@@ -1,0 +1,42 @@
+@use "../../../styles/theming.scss" as theme;
+
+:host {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr;
+
+    background-color: theme.color('background', 'secondary');
+
+
+    div.label {
+        background-color: theme.color('accent', 'primary');
+        font-family: 'Fira Code';
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 1px;
+
+        user-select: none;
+    }
+
+    div.list {
+        padding: 3px;
+        display: flex;
+        column-gap: 2px;
+        flex-direction: row-reverse;
+        overflow: hidden;
+        background-color: theme.color('background', 'secondary-dark');
+    }
+}
+
+// ph-group :host {
+//     background-color: transparent !important;
+
+//     div.label {
+//         background-color: transparent !important;
+//         color: theme.color('text', 'secondary') !important;
+//         font-weight: unset !important;
+//     }
+// }
