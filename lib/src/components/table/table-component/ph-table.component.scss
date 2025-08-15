@@ -26,6 +26,7 @@
     flex-direction: column;
     margin: 4px;
     overflow: hidden;
+    background-color: theme.color("background", "secondary");
 }
 
 :host ::ng-deep {
