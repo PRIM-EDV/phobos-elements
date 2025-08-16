@@ -5,12 +5,11 @@
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr;
 
-    height: 18px;
     background-color: #23282b;
 
 
     div.label {
-        background-color: theme.color("background", "secondary");
+        background-color: theme.color("accent", "secondary");
         font-family: 'Fira Code';
         font-size: 12px;
         font-weight: 500;
