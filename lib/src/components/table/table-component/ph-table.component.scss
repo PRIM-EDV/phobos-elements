@@ -1,24 +1,26 @@
 @use "../../../styles/theming.scss" as theme;
 
-/* width */
+/* styles.scss oder global.scss */
 ::-webkit-scrollbar {
-    display: none;
+  width: 6px !important;
+  display: block !important;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-    display: none;
-
+  background: #252526 !important;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-    display: none;
+  box-shadow: inset 0 0 10px 10px #333;
+  border-radius: 0 !important;
+  border: none !important;
+  border-left: solid 1px transparent !important;
+  border-top: solid 3px transparent !important;
+  border-bottom: solid 3px transparent !important;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    display: none;
+::-webkit-scrollbar-button {
+  display: none;
 }
 
 :host {
