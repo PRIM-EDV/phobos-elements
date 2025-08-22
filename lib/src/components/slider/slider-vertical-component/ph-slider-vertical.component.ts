@@ -1,16 +1,17 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'ph-slider-vertical',
-  standalone: true,
-  templateUrl: './ph-slider-vertical.component.html',
-  styleUrls: ['./ph-slider-vertical.component.scss']
+    selector: 'ph-slider-vertical',
+    templateUrl: './ph-slider-vertical.component.html',
+    styleUrls: ['./ph-slider-vertical.component.scss']
 })
 export class PhSliderVertical implements OnChanges, AfterViewInit  {
+    public math = Math;
     public active = 0;
 
     @Input() public label = '';
     @Input() public value: number = 0;
+    @Input() public unit: string = '';
     @Input() public ticks: string[] = [];
     @Input() public tickValues: any[] = [];
 
@@ -33,17 +34,25 @@ export class PhSliderVertical implements OnChanges, AfterViewInit  {
     }
 
     ngAfterViewInit(): void {
-        this.setTick();
+        const height = this.track.nativeElement.clientHeight;
+        const rect = this.track.nativeElement.getBoundingClientRect(); 
+        const offsetTop = (100 - this.value) / 100 * height;
+
+        this.handle.nativeElement.style.top = `${Math.max(Math.min(offsetTop  - 10, height), 0) }px`;
     }
 
     ngOnChanges(changes: SimpleChanges) {
-
+        if (!this.dragged) {
+            const height = this.track.nativeElement.clientHeight;
+            const offsetTop = (100 - this.value) / 100 * height;
+            console.log(this.value, "?");
+            this.handle.nativeElement.style.top = `${Math.max(Math.min(offsetTop  - 10, height), 0) }px`;
+        }
     }
 
     onDragStart() {
         this.dragged = true;
         this.update();
-        console.log("Drag") 
     }
 
     onDrag(e: MouseEvent) {
@@ -60,6 +69,7 @@ export class PhSliderVertical implements OnChanges, AfterViewInit  {
             const height = this.track.nativeElement.clientHeight;
             const rect = this.track.nativeElement.getBoundingClientRect(); 
             this.handle.nativeElement.style.top = `${Math.max(Math.min(e.changedTouches[0].clientY - rect.top - 10, height), 0) }px`;
+            this.update()
         }
     }
 
@@ -77,7 +87,6 @@ export class PhSliderVertical implements OnChanges, AfterViewInit  {
     }
 
     private update() {
-        // this.value = this.tickValues[this.active];
         this.value = 100 - Math.round((this.handle.nativeElement.offsetTop / this.track.nativeElement.clientHeight) * 100);
         this.valueChange.next(this.value);
     }
