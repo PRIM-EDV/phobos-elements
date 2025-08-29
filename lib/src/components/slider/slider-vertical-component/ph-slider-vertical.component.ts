@@ -45,7 +45,6 @@ export class PhSliderVertical implements OnChanges, AfterViewInit  {
         if (!this.dragged) {
             const height = this.track.nativeElement.clientHeight;
             const offsetTop = (100 - this.value) / 100 * height;
-            console.log(this.value, "?");
             this.handle.nativeElement.style.top = `${Math.max(Math.min(offsetTop  - 10, height), 0) }px`;
         }
     }
