@@ -20,7 +20,7 @@ export class PhSwitch  implements OnInit {
   ngOnInit() {}
 
   @HostListener('click')
-  onClick(ev: MouseEvent) {
+  onClick(ev?: MouseEvent) {
     this.selectedChange.emit();
   }
 
